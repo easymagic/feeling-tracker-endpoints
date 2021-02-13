@@ -32,11 +32,24 @@ class UserEmotionFeedback extends Model
         }
 
 
+        if (!$this->scaleIsValid($data['scale_id'])){
+            return [
+                'message'=>'Invalid scale!',
+                'error'=>true
+            ];
+        }
+
+
         $this->user_id = $data['user_id'];
         $this->scale_id = $data['scale_id'];
         $this->feedback = $data['feedback'];
 
         $this->save();
+
+        return  [
+            'message'=>'Feedback submitted succesfully.',
+            'error'=>false
+        ];
 
     }
 

@@ -73,4 +73,9 @@ class Scale extends Model
         });
 
     }
+
+
+    static function fetch(){
+        return (new self)->newQuery();
+    }
 }
