@@ -44,8 +44,9 @@ class ApiCollectionController extends Controller
 
     function getMyEmotions($email){
 //        $email = request('email');
+        $user_id = User::fetch()->where('email',$email)->first()->id;
         return [
-            'list'=>UserEmotionFeedback::fetch()->where('email',$email)->get()
+            'list'=>UserEmotionFeedback::fetch()->where('user_id',$user_id)->get()
         ];
     }
 
