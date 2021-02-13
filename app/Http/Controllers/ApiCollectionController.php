@@ -50,7 +50,7 @@ class ApiCollectionController extends Controller
     }
 
     function estimateMyCurrentMood(){
-        
+
     }
 
 
