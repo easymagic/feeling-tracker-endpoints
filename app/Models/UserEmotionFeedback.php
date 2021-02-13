@@ -14,17 +14,21 @@ class UserEmotionFeedback extends Model
         return (new self)->createFeedback($data);
     }
 
-    function userIsValid($user_id){
-        return (new User)->newQuery()->where('id',$user_id)->exists();
+    static function fetch(){
+      return (new self)->newQuery();
     }
 
-    function scaleIsValid($scale_id){
-        return (new Scale)->newQuery()->where('scale_id',$scale_id)->exists();
+    static function userIsValid($email){
+        return (new User)->newQuery()->where('id',$email)->exists();
+    }
+
+    static function scaleIsValid($scale_value){
+        return (new Scale)->newQuery()->where('scale_value',$scale_value)->exists();
     }
 
     function createFeedback($data){
 
-        if (!$this->userIsValid($data['user_id'])){
+        if (!$this->userIsValid($data['email'])){
             return [
                 'message'=>'Invalid user!',
                 'error'=>true
@@ -32,7 +36,7 @@ class UserEmotionFeedback extends Model
         }
 
 
-        if (!$this->scaleIsValid($data['scale_id'])){
+        if (!$this->scaleIsValid($data['scale_value'])){
             return [
                 'message'=>'Invalid scale!',
                 'error'=>true
@@ -40,8 +44,8 @@ class UserEmotionFeedback extends Model
         }
 
 
-        $this->user_id = $data['user_id'];
-        $this->scale_id = $data['scale_id'];
+        $this->user_id = User::fetch()->where('email',$data['email'])->first()->id; //  $data['user_id'];
+        $this->scale_id = Scale::fetch()->where('scale_value',$data['scale_value'])->first()->id; // $data['scale_id'];
         $this->feedback = $data['feedback'];
 
         $this->save();

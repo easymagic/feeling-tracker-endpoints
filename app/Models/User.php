@@ -79,5 +79,9 @@ class User extends Authenticatable
         });
     }
 
+    static function fetch(){
+        return (new self)->newQuery();
+    }
+
 
 }
