@@ -15,6 +15,11 @@ class CreateUserEmotionFeedbackTable extends Migration
     {
         Schema::create('user_emotion_feedback', function (Blueprint $table) {
             $table->id();
+
+            $table->integer('scale_id')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->text('feedback')->nullable();
+
             $table->timestamps();
         });
     }

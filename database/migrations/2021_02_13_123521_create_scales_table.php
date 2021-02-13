@@ -14,8 +14,17 @@ class CreateScalesTable extends Migration
     public function up()
     {
         Schema::create('scales', function (Blueprint $table) {
+
             $table->id();
+
+            $table->string('name')->nullable();
+            $table->string('color')->nullable();
+            $table->integer('scale_value')->nullable();
+
+            $table->text('suggestion')->nullable();
+
             $table->timestamps();
+
         });
     }
 
