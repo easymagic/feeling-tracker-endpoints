@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +13,10 @@ class Scale extends Model
 
     function nameExists($name){
         return (new self)->newQuery()->where('name',$name)->exists();
+    }
+
+    function user_feedbacks(){
+        return $this->hasMany(UserEmotionFeedback::class,'scale_id');
     }
 
     function populateMeOnce($data){
@@ -77,5 +82,15 @@ class Scale extends Model
 
     static function fetch(){
         return (new self)->newQuery();
+    }
+
+    static function getAverageMood($email){
+
+//        dd(User::fetch()->where('email',$email)->first());
+        $userId = User::fetch()->where('email',$email)->first()->id;
+        return self::fetch()->whereHas('user_feedbacks',function(Builder $builder) use ($userId){
+            return $builder->where('user_id',$userId);
+        });
+
     }
 }

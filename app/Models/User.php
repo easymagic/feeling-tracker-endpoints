@@ -83,5 +83,9 @@ class User extends Authenticatable
         return (new self)->newQuery();
     }
 
+    static function userExists($email){
+        return self::fetch()->where('email',$email)->exists();
+    }
+
 
 }

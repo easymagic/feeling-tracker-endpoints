@@ -44,13 +44,32 @@ class ApiCollectionController extends Controller
 
     function getMyEmotions($email){
 //        $email = request('email');
+        if (is_null(User::fetch()->where('email',$email)->first())){
+            return [
+                'list'=>[]
+            ];
+        }
         $user_id = User::fetch()->where('email',$email)->first()->id;
         return [
             'list'=>UserEmotionFeedback::fetch()->where('user_id',$user_id)->get()
         ];
     }
 
-    function estimateMyCurrentMood(){
+    function estimateMyCurrentMood($email){
+
+        if (!User::userExists($email)){
+            return [
+                'data'=>[],
+                'mesage'=>'User does not exist!',
+                'error'=>true
+            ];
+        }
+
+//        dd(UserEmotionFeedback::estimateMyCurrentMood($email)->get());
+
+        return [
+           'data'=>UserEmotionFeedback::estimateMyCurrentMood($email)
+        ];
 
     }
 
