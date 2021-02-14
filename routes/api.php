@@ -23,3 +23,4 @@ Route::get('fetch-users',[\App\Http\Controllers\ApiCollectionController::class,'
 Route::get('fetch-user/{email}',[\App\Http\Controllers\ApiCollectionController::class,'fetchUser']);
 Route::post('add-emotion-feedback',[\App\Http\Controllers\ApiCollectionController::class,'addEmotionFeedback']);
 Route::get('get-my-emotions/{email}',[\App\Http\Controllers\ApiCollectionController::class,'getMyEmotions']);
+Route::get('estimate-my-current-mood',[\App\Http\Controllers\ApiCollectionController::class,'estimateMyCurrentMood']);
