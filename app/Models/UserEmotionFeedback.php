@@ -19,7 +19,7 @@ class UserEmotionFeedback extends Model
     }
 
     static function userIsValid($email){
-        return (new User)->newQuery()->where('id',$email)->exists();
+        return (new User)->newQuery()->where('email',$email)->exists();
     }
 
     static function scaleIsValid($scale_value){
